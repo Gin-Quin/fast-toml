@@ -73,12 +73,12 @@ console.log(data.soundOptions.volume)  // 68
 
 
 ### Using in browser
-You can download the browser version of fast-toml [here](https://github.com/Lepzulnag/fast-toml/blob/master/%40lepzulnag-browser/fast-toml.js). 
+You can download the browser version of fast-toml [here](https://github.com/Lepzulnag/fast-toml/blob/master/browser/fast-toml.js). 
 
 Just add the file to your project and require it with a script tag. You can then use the globally defined `TOML` object.
 
 
-##<a name="benchmarks"></a> Speed and size comparison with other parsers
+## <a name="benchmarks"></a> Speed and size comparison with other parsers
 Here is the comparison between **fast-toml** and the other 0.5.0-compliant TOML parsers for Javascript :
 
 - [Iarna](https://www.npmjs.com/package/@iarna/toml)'s Toml
@@ -94,7 +94,7 @@ Here is the comparison between **fast-toml** and the other 0.5.0-compliant TOML 
 | One-use (require+first round)                                   | **11.864**     | 28.631       | 18.236               | 266.711  |
 | Warm round                                                      | 1.483      | 7.275        | **1.420**                | 34.878   |
 | Hot round                                                       | **0.501**      | 0.604        | 0.627                | 6.639    |
-| Package size (including dependencies, readme, sourcemaps, ...) | **13 ko**    | 93.1 ko      | 261 ko               | +3000 ko |
+| Package size (including dependencies, readme, sourcemaps, ...) | **13.8 ko**    | 93.1 ko      | 261 ko               | +3000 ko |
 
 
 The comparison has been made in a Node 11.2.0 environment with this medium-size [sample TOML file](https://gist.github.com/robmuh/7966da29024c075349a963840e2298b2), which covers about all the different ways to use TOML.

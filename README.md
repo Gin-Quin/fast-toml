@@ -1,6 +1,6 @@
 # Fast TOML Parser for Node.js
 
-`fast-toml` is the fastest and lightest Javascript parser for TOML files (see [benchmarks](#benchmarks) below).
+`fast-toml` is the fastest and lightest Javascript parser for TOML files (see [benchmarks](https://www.npmjs.com/package/fast-toml#benchmarks)).
 
 TOML stands for **T**om's **O**bvious and **M**inimal **L**anguage and it is an awesome language for your configuration files, better than JSON and YAML on many aspects. [Learn here](https://github.com/toml-lang/toml) what is TOML and how to use it (it's definitely worth the ten minutes learning).
 
