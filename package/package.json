@@ -1,6 +1,6 @@
 {
   "name": "fast-toml",
-  "version": "0.5.0",
+  "version": "0.5.2",
   "description": "Fast and light parser for TOML 0.5, an alternative to JSON or YAML file formats.",
   "main": "fast-toml.js",
   "scripts": {

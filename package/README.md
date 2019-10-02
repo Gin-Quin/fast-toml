@@ -81,17 +81,17 @@ Just add the file to your project and require it with a script tag. You can then
 ## <a name="benchmarks"></a> Speed and size comparison with other parsers
 Here is the comparison between **fast-toml** and the other 0.5.0-compliant TOML parsers for Javascript :
 
-- [Iarna](https://www.npmjs.com/package/@iarna/toml)'s Toml
-- [LongTengDao](https://www.npmjs.com/package/@ltd/j-toml)'s Toml
+- [Iarna](https://www.npmjs.com/package/@iarna/toml)'s toml
+- [LongTengDao](https://www.npmjs.com/package/@ltd/j-toml)'s j-toml
 - [Bombadil](https://www.npmjs.com/package/@sgarciac/bombadil) (wich use the *Chevrotain Parser Building Toolkit*)
 
 *(All time values are milliseconds)*
 
-|                                                                 | fast-toml | Iarna's toml | LongTengDao's j-toml | Bombadil |
+|                                                                 | fast-toml | Iarna's toml | j-toml | Bombadil |
 |-----------------------------------------------------------------|------------|--------------|----------------------|----------|
 | Require                                                         | **2.375**      | 14.720       | 5.969                | 196.741  |
 | First round                                                     | **9.489**      | 13.911       | 12.267               | 69.970   |
-| One-use (require+first round)                                   | **11.864**     | 28.631       | 18.236               | 266.711  |
+| One-use *(require+first round)*                                   | **11.864**     | 28.631       | 18.236               | 266.711  |
 | Warm round                                                      | 1.483      | 7.275        | **1.420**                | 34.878   |
 | Hot round                                                       | **0.501**      | 0.604        | 0.627                | 6.639    |
 | Package size | **13.8 ko**    | 93.1 ko      | 261 ko               | +3000 ko |
