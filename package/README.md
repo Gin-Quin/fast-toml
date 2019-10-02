@@ -94,7 +94,8 @@ Here is the comparison between **fast-toml** and the other 0.5.0-compliant TOML 
 | One-use (require+first round)                                   | **11.864**     | 28.631       | 18.236               | 266.711  |
 | Warm round                                                      | 1.483      | 7.275        | **1.420**                | 34.878   |
 | Hot round                                                       | **0.501**      | 0.604        | 0.627                | 6.639    |
-| Package size (including dependencies, readme, sourcemaps, ...) | **13.8 ko**    | 93.1 ko      | 261 ko               | +3000 ko |
+| Package size | **13.8 ko**    | 93.1 ko      | 261 ko               | +3000 ko |
+
 
 
 The comparison has been made in a Node 11.2.0 environment with this medium-size [sample TOML file](https://gist.github.com/robmuh/7966da29024c075349a963840e2298b2), which covers about all the different ways to use TOML.
@@ -115,7 +116,7 @@ In actual NodeJs package ecosystem, your imported libraries can grow very fast i
 
 The package size of `fast-toml` is so small because it follows this principle :
 
-- the source code (+ your tests + dev dependencies), should be on github/gitlab or similar. Users who want to collaborate on your project will `git clone` it (not `npm install` it).
+- the source code (+ your tests + dev dependencies), should be on github/gitlab or similar. Users who want to collaborate on your project will **git clone** it (not **npm install** it).
 - your npm package should only contain the *useful code* (production-ready). When you use a third party library, you expect it has been battle-tested and you don't need the development version. If you have several versions of your code (CommonJS, ESmodules, browser), you should have one package for each of these versions.
 
 
