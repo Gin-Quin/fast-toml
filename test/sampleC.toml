@@ -1,0 +1,198 @@
+
+# ---------------------
+["Hello world"]
+# ---------------------
+html = "<h1>Hello {greetingsTo} !</h1>"
+
+js = '''
+export {App}
+
+class App extends Component {
+static template = require('./App.html')
+greetingsTo = world
+}
+'''
+
+
+
+# -----------------------
+["Id and classes"]
+# -----------------------
+html = """
+<p #myId>My id is myId</p>
+
+<p .red>I have the class red</p>
+
+<p .red .italic>I have the classes red and italic</p>
+
+<p .bold .green>I have the classes green and bold</p>
+
+<p class={className}>I have the dynamic class {className}. Try to change it!</p>
+"""
+
+js = """
+export {App}
+import './App.css'
+
+class App extends Component {
+static template = require('./App.html')
+className = 'purple'
+}
+"""
+
+css = """
+#myId {
+color: blue;
+}
+.red {
+color: red;
+}
+.green {
+color: green;
+}
+.italic {
+font-style: italic;
+}
+.bold {
+font-weight: bold;
+}
+.purple {
+color: purple;
+}
+"""
+
+
+
+
+# -----------------------------
+["Attributes and style"]
+# -----------------------------
+html = """
+<p hidden={isHidden} clickable *click=toggleHide>Click to hide me</p>
+<p hidden={!isHidden} clickable *click=toggleHide italic>Click to reveal him</p>
+
+<hr>
+
+<p italic>I am italic.</p>
+<p italic stroke>I am italic and stroke</p>
+
+<hr>
+
+<p bold @opacity='0.5'>You can change my opacity</p>
+<p bold @color={customColor}>I can have the color you want</p>
+"""
+
+js = """
+export {App}
+import './App.css'
+
+class App extends Component {
+static template = require('./App.html')
+isHidden = false
+customColor = 'blue'
+
+toggleHide() {
+isHidden = !isHidden
+}
+}
+"""
+
+css = """
+[clickable] {
+cursor: pointer;
+user-select: none;
+}
+
+[bold] {
+font-weight: bold;
+}
+
+[italic] {
+font-style: italic;
+}
+
+[stroke] {
+text-decoration: line-through;
+}
+"""
+
+
+
+
+# -----------------------------
+["The for tag"]
+# -----------------------------
+html = """
+There are {heroes.length} heroes :
+<for hero of heroes>
+<p>
+{index+1}. My name is <u>{hero.name}</u> and my strength is <b>{hero.strength}</b>
+</p>
+</for>
+"""
+
+js = """
+export {App}
+
+class App extends Component {
+static template = require('./App.html')
+heroes = [
+{name: "Hercules", strength: 42},
+{name: "Albert", strength: 4},
+{name: "Superman", strength: 489},
+{name: "Zabu", strength: 3218532},
+]
+}
+"""
+
+
+
+
+# -----------------------------
+["A Hero component"]
+# -----------------------------
+html = """
+<Hero />
+
+<hr>
+
+<Hero[heroes] />
+
+<hr>
+
+<Hero[currentHero] />
+
+<hr>
+
+<Hero(name='Salomon', strength=14) />
+"""
+
+js = """
+export {App, Hero}
+import './App.css'
+
+class App extends Component {
+static template = require('./App.html')
+heroes = [
+{name: "Hercules", strength: 42},
+{name: "Albert", strength: 4},
+{name: "Superman", strength: 489},
+{name: "Zabu", strength: 3218532},
+]
+currentHero = this.heroes[1]
+}
+
+class Hero extends Component {
+static template = "I'm a hero. My name is {name} and my strength is {strength}."
+name = 'unknown'
+strength = 10
+}
+"""
+
+css = """
+hero {
+display: block;
+margin: 0.2em 0;
+}
+"""
+
