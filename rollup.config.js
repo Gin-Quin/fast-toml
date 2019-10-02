@@ -4,9 +4,17 @@ export default {
 		require('rollup-plugin-butternut')()
 	],
 	output: {
-		file: 'package/fast-toml.js',
 		intro: '\nlet source = "", position = 0;',
+
+		/* target : Node
 		format: 'cjs',
-		compact: true
+		file: 'package/fast-toml.js',
+		//*/
+		
+		///* target : Browser
+		format: 'iife',
+		file: 'browser/fast-toml.js',
+		name: 'TOML'
+		// */
 	}
 }
