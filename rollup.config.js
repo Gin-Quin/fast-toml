@@ -6,12 +6,12 @@ export default {
 	output: {
 		intro: '\nlet source = "", position = 0;',
 
-		/* target : Node
+		// /* target : Node
 		format: 'cjs',
 		file: 'package/fast-toml.js',
 		//*/
-		
-		///* target : Browser
+
+		/* target : Browser
 		format: 'iife',
 		file: 'browser/fast-toml.js',
 		name: 'TOML'

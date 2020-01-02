@@ -14,7 +14,7 @@ function TOML() {
 	let result = ''
 	for (let arg of arguments)
 		result += typeof arg == 'string'? arg : arg[0]
-	return HUML.parse(result)
+	return parse(result)
 }
 
 TOML.parse = parse

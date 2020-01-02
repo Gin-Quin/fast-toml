@@ -28,8 +28,8 @@ function parse(src) {
 				scope.push(trueValue(key.trimEnd()))
 		}
 		else {
-			if (!val)
-				throw error("Expecting value after =")
+			// if (!val)
+			// 	throw error("Expecting value after =")
 			scope.set(key.trimEnd(), trueValue(val.trimEnd()))
 		}
 
@@ -128,7 +128,7 @@ function parse(src) {
 				if (key)
 					throw error("Unexpected "+c)
 				end = fragment(source, position)
-				
+
 				if (source[position+1] == c) {  // case '[[' -> array of table
 					if (source[end-2] != stop)
 						throw error("Missing "+stop+stop)
@@ -147,7 +147,7 @@ function parse(src) {
 				scope.enterArray(c == '[')
 				inlineTypes.push(stop)
 			}
-			
+
 			// enter inline scope
 			else {
 				if (val)
@@ -209,6 +209,3 @@ function parse(src) {
 
 	return scope.data
 }
-
-
-

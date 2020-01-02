@@ -1,6 +1,6 @@
 {
   "name": "fast-toml",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Fast and light parser for TOML 0.5, an alternative to JSON or YAML file formats.",
   "main": "fast-toml.js",
   "scripts": {
@@ -22,7 +22,7 @@
   "license": "MIT",
   "homepage": "https://github.com/Lepzulnag/fast-toml",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/Lepzulnag/fast-toml.git"
+    "type": "git",
+    "url": "https://github.com/Lepzulnag/fast-toml.git"
   }
 }
