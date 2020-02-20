@@ -1,156 +1,85 @@
 
 export default Scope
 
-import { getTable, splitElements } from './utils'
+import { getScope, getScopeAndKey, splitElements, error } from './utils'
+
 
 /**
 * The class used to manipulate the data
 */
 class Scope {
-	constructor(data={}) {
-		this.data = data
-		this.scopeList = []
+	constructor() {
+		this.root = {}
+		this.data = this.root  // actual object we work with
+		this.inlineScopeList = []  // list of parent scopes
 	}
 
-	
-	// return the last scope
-	getCurrentScope() {
-		return this.scopeList[this.scopeList.length-1]
+	get isRoot() {
+		return this.data == this.root
 	}
-
-	
-	// merge all scope elements together
-	getFullScope(extra=null) {
-		let result = []
-		for (let scope of this.scopeList)
-			result = result.concat(scope.elements)
-		if (extra)
-			result = result.concat(extra)
-		return result
-	}
-
 
 	// set a value to the data
-	set(key, val) {
-		let keyElements = splitElements(key)
-		key = keyElements.pop()
-		let elements = this.getFullScope(keyElements)
-		let data = getTable(this.data, elements)
-		if (typeof data == 'string')
-			return data
-		data[key] = val
+	set(fullKey, val) {
+		let [ scope, key ] = getScopeAndKey(this.data, splitElements(fullKey))
+		if (typeof scope == 'string')
+			throw `Wtf the scope is a string. Please report the bug`
+		if (key in scope)
+			throw error(`Re-writing the key '${fullKey}'`)
+		scope[key] = val
+		return val
 	}
 
 	// push a value to the data
 	// (transform the mother into an array if it was an object)
 	push(val) {
-		// if we add directly to the main data
-		if (!this.scopeList.length) {
-			if (!Array.isArray(this.data)) {
-				let data = this.data
-				this.data = []
-				Object.assign(this.data, data)
+		// if the data is not an array, we transform it into an array
+		if (!(this.data instanceof Array)) {
+			if (this.isRoot) {
+				this.data = Object.assign([], this.data)
+				this.root = this.data
 			}
-			this.data.push(val)
-			return this.data
+			else throw error(`Missing key`)
 		}
 
-		let elements = this.getFullScope()
-		let momName = elements.pop()
-		let data = getTable(this.data, elements)
-		
-		// we check there is no error
-		if (typeof data == 'string')
-			return data
-
-		let mom = data[momName]
-
-		switch (typeof mom) {
-			case 'object':
-				if (Array.isArray(mom))
-					break
-			case undefined:
-				data[momName] = Array()
-				Object.assign(data[momName], mom)
-				mom = data[momName]
-			break
-
-			default:
-				return '["'+ elements.join('"].["') +'"].["'+momName+'"] must be an object'
-		}
-		mom.push(val)
-		return mom
+		this.data.push(val)
+		return this
 	}
-
 
 	// use a global scope
 	use(raw) {
-		const scope = globalScope(raw)
-		const currentScope = this.getCurrentScope()
-		if (currentScope && currentScope.isGlobal)
-			this.scopeList.pop()
-		this.scopeList.push(scope)
-
-		// we create the table if it does not exist
-		getTable(this.data, this.getFullScope())
+		this.data = getScope(this.root, splitElements(raw))
+		return this
 	}
 
 	// use a global array scope
 	useArray(raw) {
-		this.use(raw)
-		let mom = this.push({})
-		let index = mom.length - 1
-		this.use(raw+'.'+index)
+		let [ scope, key ] = getScopeAndKey(this.root, splitElements(raw))
+		this.data = {}
+		if (scope[key] === undefined)
+			scope[key] = []
+		scope[key].push(this.data)
+		return this
 	}
 
-
 	// enter an inline scope
-	enter(raw, isArray=false) {
-		this.scopeList.push(inlineScope(raw.trimEnd()))
-	
-		// we create the data
-		let elements = this.getFullScope()
-		let baby = elements.pop()
-		let mom = getTable(this.data, elements)
-		
-		if (!(baby in mom))
-			mom[baby] = isArray ? [] : {}
+	enter(raw, value) {
+		this.inlineScopeList.push(this.data)
+		this.set(raw, value)
+		this.data = value
+		return this
 	}
 
 	// push and enter an inline array scope
-	enterArray(isArray=false) {
-		let array = this.push(isArray? [] : {})  // we push an empty object
-		this.scopeList.push(inlineScope(array.length - 1))  // we point to the last element
+	enterArray(value) {
+		this.inlineScopeList.push(this.data)
+		this.push(value)
+		this.data = value
+		return this
 	}
-
 
 	// exit an inline scope
 	exit() {
-		let scope
-		while ((scope = this.scopeList.pop()) && scope.isGlobal);
+		this.data = this.inlineScopeList.pop()
+		return this
 	}
 }
-
-
-
-
-
-
-
-/**
-* Create a globalScope or an inlineScope object
-*/
-const globalScope = raw =>({
-	isGlobal: true,
-	elements: splitElements(raw)
-})
-
-const inlineScope = raw =>({
-	isInline: true,
-	elements: splitElements(raw)
-})
-
-
-
-
-

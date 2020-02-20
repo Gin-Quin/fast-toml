@@ -73,7 +73,7 @@ console.log(data.soundOptions.volume)  // 68
 
 
 ### Using in browser
-You can download the browser version of fast-toml [here](https://github.com/Lepzulnag/fast-toml/blob/master/browser/fast-toml.js). 
+You can download the browser version of fast-toml [here](https://github.com/Lepzulnag/fast-toml/blob/master/dist/browser/fast-toml.js). 
 
 Just add the file to your project and require it with a script tag. You can then use the globally defined `TOML` object.
 

@@ -23,14 +23,17 @@ function parse(src) {
 
 	// add a key[/val] to the data
 	const addKey = () => {
+		key = key.trimEnd()
+
 		if (defineKey) {
-			if (key)
-				scope.push(trueValue(key.trimEnd()))
+			if (key) scope.push(trueValue(key))
 		}
 		else {
-			// if (!val)
-			// 	throw error("Expecting value after =")
-			scope.set(key.trimEnd(), trueValue(val.trimEnd()))
+			if (!key)
+				throw error("Expected key before =")
+			if (!val)
+				throw error("Expected value after =")
+			scope.set(key, trueValue(val.trimEnd()))
 		}
 
 		key = ''
@@ -129,9 +132,10 @@ function parse(src) {
 					throw error("Unexpected "+c)
 				end = fragment(source, position)
 
-				if (source[position+1] == c) {  // case '[[' -> array of table
-					if (source[end-2] != stop)
-						throw error("Missing "+stop+stop)
+				// case '[[' -> array of table
+				if (c == '[' && source[position+1] == '[') {
+					if (source[end-2] != ']')
+						throw error("Missing ]]")
 					scope.useArray(source.slice(position+2, end-2))
 				}
 				else
@@ -144,7 +148,7 @@ function parse(src) {
 			else if (defineKey) {
 				if (key)
 					throw error("Unexpected "+c)
-				scope.enterArray(c == '[')
+				scope.enterArray(c == '[' ? [] : {})
 				inlineTypes.push(stop)
 			}
 
@@ -152,7 +156,7 @@ function parse(src) {
 			else {
 				if (val)
 					throw error("Unexpected "+c)
-				scope.enter(key, c == '[')
+				scope.enter(key.trimEnd(), c == '[' ? [] : {})
 				inlineTypes.push(stop)
 				key = ''
 				defineKey = true
@@ -207,5 +211,5 @@ function parse(src) {
 	if (inlineTypes.length)
 		throw error("Missing "+inlineTypes.pop())
 
-	return scope.data
+	return scope.root
 }

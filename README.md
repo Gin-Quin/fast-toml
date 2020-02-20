@@ -8,22 +8,24 @@ This part is dedicated to development. See [installation and usage](https://www.
 
 
 ## Development
-You need to install globally `rollup` (the bundler) and `rollup-plugin-butternut` (the minifier) :
+You need to install globally `rollup` (the bundler) and `rollup-plugin-terser` (the minifier) :
 
 ```
 npm i -g rollup
-npm i -g rollup-plugin-butternut
+npm i -g rollup-plugin-terser
 ```
 
 Then you need to make sure your global installations are requirable from the rollup.config.js. That means your NODE_PATH environment variable must be set to your global `node_modules` folder.
 
-On my Linux environment it is set to :
+On my Ubuntu environment it is set to :
 
 ```shell
 export NODE_PATH=~/.npm-global/lib/node_modules
 ```
 
-Then run `rollup -c` to recompile the bundle.
+Then run `rollup -c` to compile the bundle.
+
+Or `rollup -c -w` to recompile live on every file change.
 
 ## Tests
 To run the tests, execute : `node test`.

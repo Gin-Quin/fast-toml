@@ -32,7 +32,7 @@ str3 = "Roses are red\r\nViolets are blue"
 str4 = "The quick brown fox jumps over the lazy dog."
 
 str5 = """
-The quick brown 
+The quick brown
 fox jumps over
 the lazy dog."""
 
@@ -96,8 +96,8 @@ arr4 = [ "all", 'strings', """are the same""", '''type''']
 arr5 = [ [ 1, 2 ], ["a", "b", "c"] ]
 
 data = [
-	
-	
+
+
 ]
 
 arr7 = [

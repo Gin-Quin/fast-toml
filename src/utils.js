@@ -8,7 +8,8 @@ export {
 	fragment,
 	getLocation,
 	splitElements,
-	getTable,
+	getScope,
+	getScopeAndKey,
 }
 
 /**
@@ -70,12 +71,12 @@ function trueValue(val) {
 	switch (val) {
 		case 'true': return true
 		case 'false': return false
-		
+
 		case 'nan':
 		case 'NaN': return false
 
 		case 'null': return null
-		
+
 		case 'inf':
 		case '+inf':
 		case 'Infinity':
@@ -86,7 +87,6 @@ function trueValue(val) {
 
 	return val
 }
-
 
 
 /**
@@ -155,12 +155,6 @@ function escapeSpecials(str) {
 	return result + str.slice(offset)
 }
 
-
-
-
-
-
-
 /**
 * Create an error message with information on the line and the column
 */
@@ -174,13 +168,12 @@ function error(msg) {
 }
 
 
-
 /**
 * Return the offset of the closing part of the string fragment.
 * A string fragment is opened by any character among <[({'"``
 * The closing characters are respectively >])}'"`
 * @param swim - indicates if sub-opening and sub-closing characters must me ignored.
-* For '(())', with swim=false -> '(()', with swim=true -> '(())' 
+* For '(())', with swim=false -> '(()', with swim=true -> '(())'
 * @return - the offset of the closing character + 1
 */
 function fragment(str, x=0, allowTriple=false) {
@@ -189,7 +182,7 @@ function fragment(str, x=0, allowTriple=false) {
 	let start = c, stop = c
 	let swim = true
 	let errorOnLineBreak = false
-	
+
 
 	switch (c) {
 		case '"':
@@ -272,9 +265,6 @@ function fragment(str, x=0, allowTriple=false) {
 }
 
 
-
-
-
 /**
 * Return the {column, line, position, lineContent} location object
 * Read from *source* and *position*
@@ -309,8 +299,6 @@ function getLocation() {
 
 	return {line, column, position: offset, lineContent}
 }
-
-
 
 
 /**
@@ -354,26 +342,49 @@ function splitElements(raw) {
 }
 
 
-
 /**
 * Return the given object in data
 * The result will/must be an object
 */
-function getTable(data, elements=[]) {
-
+function getScope(data, elements=[]) {
 	for (let elt of elements) {
+		if (data === undefined)
+			data = lastData[lastElt] = {}
 
-		if (!(elt in data))
-			data[elt] = {}
-
-		else if (typeof data[elt] != 'object') {
+		else if (typeof data != 'object') {
 			let path = '["'+elements.slice(0, elements.indexOf(elt)+1).join('"].["')+'"]'
 			throw error(path + ' must be an object')
 		}
 
+		if (data[elt] === undefined)
+			data[elt] = {}
 		data = data[elt]
+		if (data instanceof Array)
+			data = data[data.length - 1]
 	}
 
 	return data
 }
 
+
+/**
+* Almost the same, but return a pair [scope, key]
+*/
+function getScopeAndKey(data, elements=[]) {
+	const key = elements.pop()
+
+	for (let elt of elements) {
+		if (typeof data != 'object') {
+			let path = '["'+elements.slice(0, elements.indexOf(elt)+1).join('"].["')+'"]'
+			throw error(path + ' must be an object')
+		}
+
+		if (data[elt] === undefined)
+			data[elt] = {}
+		data = data[elt]
+		if (data instanceof Array)
+			data = data[data.length - 1]
+	}
+
+	return [data, key]
+}

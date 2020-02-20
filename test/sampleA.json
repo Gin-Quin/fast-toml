@@ -1,0 +1,155 @@
+{
+	"my title": "TOML Example (v0.4.0)",
+	"foo": {"x": 1},
+
+
+	"key": "value",
+
+	"bare_key": "value",
+	"bare-key": "value",
+
+	"127.0.0.1": "value",
+	"character encoding": "value",
+	"ʎǝʞ": "value",
+	"key2": "value",
+	"quoted \"value\"": "value",
+
+	"str1": "Roses are red\nViolets are blue",
+
+	"str2": "Roses are red\nViolets are blue",
+	"str3": "Roses are red\r\nViolets are blue",
+
+	"str4": "The quick brown fox jumps over the lazy dog.",
+	"str5": "The quick brown\nfox jumps over\nthe lazy dog.",
+
+	"str6": "The quick brown fox jumps over the lazy dog.",
+	"winpath": "C:\\Users\\nodejs\\templates",
+	"winpath2": "\\\\ServerX\\admin$\\system32\\",
+	"quoted": "Tom \"Dubs\" Preston-Werner",
+
+	"regex": "<\\i\\c*\\s*>",
+	"regex2": "I [dw]on't need \\d{2} apples",
+
+	"flt1": 1.0,
+	"flt2": 3.1415,
+	"flt3": -0.01,
+
+	"flt5": 1000000,
+	"flt6": -0.02,
+	"flt8": 9224617.445991228313,
+
+	"bool1": true,
+	"bool2": false,
+
+	"arr1": [ 1, 2, 3 ],
+	"arr2": [ "red", "yellow", "green" ],
+	"arr3": [ [ 1, 2 ], [3, 4, 5] ],
+	"arr4": [ "all", "strings", "are the same", "type"],
+	"arr5": [ [ 1, 2 ], ["a", "b", "c"] ],
+
+	"data": [],
+
+	"arr7": [ 1, 2, 3 ],
+
+	"arr8": [ 1, 2 ],
+
+	"name": { "first": "Tom", "last": "Preston-Werner" },
+
+	"points": [
+		{ "x": 1, "y": 2, "z": 3 },
+		{ "x": 7, "y": 8, "z": 9 },
+		{ "x": 2, "y": 4, "z": 8 }
+	],
+
+	"owner": {
+		"name": "Tom Preston-Werner",
+		"organization": "GitHub",
+		"bio": "GitHub Cofounder & CEO\nLikes tater tots and beer."
+	},
+
+	"database": {
+		"server": "192.168.1.1",
+		"ports": [ 8001, 8001, 8002 ],
+		"connection_max": 5000,
+		"enabled": true
+	},
+
+	"servers": {
+		"alpha": {
+			"ip": "10.0.0.1",
+			"dc": "eqdc10"
+		},
+
+		"beta": {
+			"ip": "10.0.0.2",
+			"dc": "eqdc10"
+		}
+	},
+
+	"clients": {
+		"data": [ ["gamma", "delta"], [1, 2] ]
+	},
+
+	"a": {
+		"d": 2,
+		"b": {
+			"c": 1
+		}
+	},
+
+	"dog": {
+		"tater.man": {
+			"type": "pug"
+		}
+	},
+
+	"table-1": {
+		"key1": "some string",
+		"key2": 123
+	},
+
+	"table-2": {
+		"key1": "another string",
+		"key2": 456
+	},
+
+	"products": [
+		{
+			"name": "Hammer",
+			"sku": 738594937
+		},
+		{},
+		{
+			"name": "Nail",
+			"sku": 284758393,
+			"color": "gray"
+		}
+	],
+
+	"fruit": [
+		{
+			"name": "apple",
+			"physical": {
+				"color": "red",
+				"shape": "round"
+			},
+			"variety": [
+				{
+					"name": "red delicious"
+				},
+				{
+					"name": "granny smith"
+				}
+			]
+		},
+
+		{
+			"name": "banana",
+			"variety": [
+				{
+					"name": "plantain"
+				}
+			]
+		}
+	]
+}
