@@ -27,5 +27,8 @@ Then run `rollup -c` to compile the bundle.
 
 Or `rollup -c -w` to recompile live on every file change.
 
+
 ## Tests
-To run the tests, execute : `node test`.
+First, make sure you installed the development dependencies by running : `npm install`.
+
+Then to run the tests execute : `node test`.
