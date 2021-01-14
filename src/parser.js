@@ -20,6 +20,11 @@ function parse(src) {
 	let defineKey = true  // first define key, then value
 	let data = {}
 	let mustAssign = false
+	
+	// prototype pollution mitigation
+	if(source.includes('__proto__') || source.includes('constructor') || source.includes('prototype')){
+        	return false;
+    	}
 
 	// add a key[/val] to the data
 	const addKey = () => {
