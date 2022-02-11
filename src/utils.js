@@ -1,17 +1,6 @@
 
 let fs  // we don't require the fileSystem yet because : 1. it may not be used, 2. it won't work on browsers
 
-export {
-	skipWhiteSpaces,
-	trueValue,
-	error,
-	fragment,
-	getLocation,
-	splitElements,
-	getScope,
-	getScopeAndKey,
-}
-
 /**
 * Skip whitespaces : [ \t\r]
 */
@@ -387,4 +376,15 @@ function getScopeAndKey(data, elements=[]) {
 	}
 
 	return [data, key]
+}
+
+export {
+	skipWhiteSpaces,
+	trueValue,
+	error,
+	fragment,
+	getLocation,
+	splitElements,
+	getScope,
+	getScopeAndKey,
 }

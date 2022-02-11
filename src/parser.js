@@ -1,9 +1,5 @@
-
-export default parse
-
 import Scope from './Scope'
 import { skipWhiteSpaces, trueValue, error, fragment, getLocation } from './utils'
-
 
 function parse(src) {
 	if (typeof src != 'string')
@@ -213,3 +209,5 @@ function parse(src) {
 
 	return scope.root
 }
+
+export default parse

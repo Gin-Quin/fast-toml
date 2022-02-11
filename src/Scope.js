@@ -1,8 +1,4 @@
-
-export default Scope
-
 import { getScope, getScopeAndKey, splitElements, error } from './utils'
-
 
 /**
 * The class used to manipulate the data
@@ -83,3 +79,5 @@ class Scope {
 		return this
 	}
 }
+
+export default Scope

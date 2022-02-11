@@ -1,7 +1,6 @@
 'use strict'
 
 import parse from './parser'
-export default TOML
 
 let fs = null
 let readFile = null
@@ -36,3 +35,5 @@ TOML.parseFileSync = function(file) {
 		fs = require('fs')
 	return parse(fs.readFileSync(file))
 }
+
+export default TOML
